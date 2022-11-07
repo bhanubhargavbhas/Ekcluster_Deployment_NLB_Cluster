@@ -1,0 +1,30 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: httpd-frontend
+  labels:
+    app: httpd-frontend
+    type: Frontend
+spec:
+  replicas: 3
+  selector:
+      matchLabels:
+        name: Demo-Deploy-pod
+        type: Frontend
+  template:
+    metadata:
+      name: Demo-Deploy-pod
+      labels:
+        name: Demo-Deploy-pod
+        type: Frontend
+    spec:
+      serviceAccountName: elasticsamp
+      containers:
+        - name: alpine-container
+          image: httpd:2.4-alpine 
+          ports:
+            - containerPort: 80
+  
+      
+    
+
