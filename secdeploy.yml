@@ -1,9 +1,9 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: httpd-frontend
+  name: httpd-frontend-1
   labels:
-    app: httpd-frontend
+    app: httpd-frontend-1
     type: Frontend
 spec:
   replicas: 3
@@ -21,10 +21,13 @@ spec:
       serviceAccountName: elasticsamp
       containers:
         - name: alpine-container
-          image: nginx:latest 
+          image: httpd:2.4-alpine
           ports:
             - containerPort: 80
-  
-      
-    
+          env:
+            - name: HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rds
+                  key: host
 
